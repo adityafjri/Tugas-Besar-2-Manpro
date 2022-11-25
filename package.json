@@ -1,0 +1,22 @@
+{
+  "name": "tubes",
+  "version": "1.0.0",
+  "description": "branch aditya",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch assets/scss/:assets/css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityafjri/Tugas-Besar-2-Manpro.git"
+  },
+  "author": "aditya fajri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adityafjri/Tugas-Besar-2-Manpro/issues"
+  },
+  "homepage": "https://github.com/adityafjri/Tugas-Besar-2-Manpro#readme",
+  "dependencies": {
+    "sass": "^1.56.1"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "tubes",
   "version": "1.0.0",
-  "description": "branch aditya",
+  "description": "Tugas besar 2 mata kuliah manajemen proyek",
   "main": "index.js",
   "scripts": {
     "sass": "sass --watch assets/scss/:assets/css"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/adityafjri/Tugas-Besar-2-Manpro.git"
   },
-  "author": "aditya fajri",
+  "author": "Aditya,Fabrianus,Muammarali,Wildan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/adityafjri/Tugas-Besar-2-Manpro/issues"

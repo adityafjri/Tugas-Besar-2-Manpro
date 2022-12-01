@@ -8,5 +8,38 @@
 </head>
 <body>
     <h2>fitur 2</h2>
+    <div class="chart" style="width: 70vh; height:70vh;">
+        <canvas id="my_chart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var xValues = ["Daenareys", "Tyrion", "Sansa", "Arya", "Jon"];
+        var yValues = [55, 49, 44, 24, 15];
+        var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+          "#e8c3b9",
+          "#1e7145"
+        ];
+        
+        new Chart("my_chart", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "screen time"
+            }
+          }
+        });
+        </script>
+    </div>
 </body>
 </html>

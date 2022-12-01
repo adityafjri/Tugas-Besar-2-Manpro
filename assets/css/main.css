@@ -1,7 +1,6 @@
 body,
 html {
   height: 100%;
-  background: #110101;
   font-family: "Roboto", sans-serif;
   overflow: hidden;
 }
@@ -127,6 +126,11 @@ html {
   .slideshow-text {
     font-size: 40px;
   }
+}
+
+.chart {
+  width: 70vh;
+  height: 40vh;
 }
 
 /*# sourceMappingURL=main.css.map */

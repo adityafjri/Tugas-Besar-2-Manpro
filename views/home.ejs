@@ -8,9 +8,23 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Condensed:100'>
+    <script src="https://kit.fontawesome.com/8a2b672019.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
+
+<!-- Search Link -->
+<a href="#search" id="search-button">
+  <i class="fa fa-search"></i> Search
+</a>
+
+<!-- Search Form -->
+<div id="search"> 
+	<span class="close">X</span>
+	<form role="search" id="searchform" action="/search" method="get">
+		<input value="" name="q" type="search" placeholder="type to search"/>
+	</form>
+</div>
 
 <div class="split-slideshow">
   <div class="slideshow">

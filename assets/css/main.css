@@ -102,6 +102,45 @@ html {
   padding: 10px;
 }
 
+.select-dropdown {
+  position: relative;
+  box-sizing: border-box;
+  border: 4px;
+  box-sizing: border-box;
+  background-color: #e6e6e6;
+  width: fit-content;
+}
+.select-dropdown select {
+  font-weight: normal;
+  max-width: 100%;
+  padding: 8px 24px 8px 10px;
+  border: none;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.select-dropdown select:active {
+  outline: none;
+  box-shadow: none;
+}
+.select-dropdown select:focus {
+  outline: none;
+  box-shadow: none;
+}
+.select-dropdown:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 0;
+  height: 0;
+  margin-top: -2px;
+  border-top: 5px solid #aaa;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
 .slideshow {
   position: absolute;
   z-index: 1;
@@ -226,8 +265,8 @@ html {
 }
 
 .chart {
-  width: 70vh;
-  height: 40vh;
+  width: 100vh;
+  height: 60vh;
 }
 
 /*# sourceMappingURL=main.css.map */

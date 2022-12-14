@@ -24,3 +24,4 @@ app.get('/graph.ejs',async(req,res)=>{
 app.listen(port,()=>{
     console.log('ready!');
 });
+

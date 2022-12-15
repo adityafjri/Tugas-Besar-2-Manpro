@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Histogram</h2>
+
+    <form action="/pencarian" method="GET">
+        <label for="Buku" class="select-dropdown">
+            <select id="Buku" name="Buku">
+                <option value="0">Silahkan Pilih...</option>
+                <%for (const i of book){%>
+                    <option value="<%=i.book %>"> Book <%=i.book %></option>
+
+                <%}%>
+            </select>
+        </label>
+        <input type="submit" value="cari">
+    </form>
+    
+    <div class="chart">
+        <canvas id="my_chart2" class="chart-canvas"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let a = '<%- JSON.stringify(topBook) %>'
+        let b = JSON.parse(a)
+        const labels2 = [];
+        const data = []
+        for (const i of b) {
+            labels2.push(i.Source)
+            data.push(i.jumlah)
+        }
+        
+        const data2 = {
+            labels: labels2,
+            datasets: [{
+                label: 'Character',
+                backgroundColor: 'rgb(26, 131, 184)',
+                borderColor: 'rgb(255, 99, 132)',
+                data,
+                borderRadius: 5,
+            }]
+        };
+        const config2 = {
+            type: 'bar',
+            data: data2,
+            options: {
+                responsive:true,
+                plugin: {
+                    legend: {
+                        position: 'top',
+                },
+                title:{
+                    display:true,
+                    text: 'Top 10 Character'
+                }
+            }
+        },
+    };
+        const myChart2 = new Chart(
+            document.getElementById('my_chart2'),
+            config2
+        );
+    </script>
+</body>
+</html>

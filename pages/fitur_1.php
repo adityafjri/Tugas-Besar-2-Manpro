@@ -19,6 +19,24 @@
             <option value="Option 3">Buku 5</option>
         </select>
     </div>
+    
+    <?php
+    include 'index.php';
+    $conn = OpenCon();
+    $queryku = "SELECT Source,sum(weight) from book_1 group by Source";
+
+    $result = $conn->query($queryku);
+
+    if($result->num_rows>0){
+    	while($row = $result->fetch_assoc()){
+		echo "nama : ".$row["Source"]."<br>";
+	}
+    }else{
+    	echo "0 results";
+    }
+    echo "Connected Successfully";
+    CloseCon($conn);
+    ?>
 
     <div class="chart">
         <canvas id="my_chart2" class="chart-canvas"></canvas>

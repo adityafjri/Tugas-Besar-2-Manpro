@@ -10,10 +10,10 @@
 <body>
     <h2>Histogram</h2>
 
-    <form action="/pencarian" method="GET">
+    <form action="/bar-chart?Buku=1" method="GET">
         <label for="Buku" class="select-dropdown">
             <select id="Buku" name="Buku">
-                <option value="0">Silahkan Pilih...</option>
+                <!-- <option value="0">Silahkan Pilih...</option> -->
                 <%for (const i of book){%>
                     <option value="<%=i.book %>"> Book <%=i.book %></option>
 

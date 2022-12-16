@@ -30,20 +30,20 @@ const dbConnnect = () =>{
 }
 
 
-app.get('/pencarian',async(req,res)=>{
+app.get('/bar-chart',async(req,res)=>{
     const conn = await dbConnnect();
     const book = await getBook(conn);
     if(req.query.Buku===undefined){
         const top = await getTopTen(conn,0);
         conn.release();
-        res.render('fitur_1',{
+        res.render('bar-chart',{
             book:book,
             topBook:top
         });
     }else{
         const top = await getTopTen(conn,req.query.Buku);
         conn.release();
-        res.render('fitur_1',{
+        res.render('bar-chart',{
             book:book,
             topBook:top
         });

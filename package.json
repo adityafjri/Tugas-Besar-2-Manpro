@@ -4,7 +4,7 @@
   "description": "Tugas besar 2 mata kuliah manajemen proyek",
   "main": "index.js",
   "scripts": {
-    "sass": "sass --watch assets/scss/:assets/css",
+    "sass": "sass --watch public/assets/scss/:public/assets/css",
     "start": "nodemon index.js"
   },
   "repository": {

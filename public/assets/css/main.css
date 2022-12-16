@@ -2,7 +2,67 @@ body,
 html {
   height: 100%;
   font-family: "Roboto", sans-serif;
-  overflow: hidden;
+}
+
+body#body-test {
+  margin: 0;
+  overflow: scroll !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+body#body-test .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(194, 74, 19, 0.1);
+  padding: 0;
+  margin: 0;
+  height: 200vh;
+}
+body#body-test #body-title {
+  font-size: 60px;
+  color: white;
+}
+body#body-test h2 {
+  color: white;
+}
+body#body-test #redirect-to-feature {
+  text-decoration: none;
+  font-size: 35px;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  margin-bottom: 40vh;
+}
+body .card {
+  height: min-content;
+  width: min-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(8, 8, 8, 0.9);
+}
+body .card .image {
+  height: 400px;
+}
+body .card .image #card-poster {
+  margin-right: 5vh;
+}
+body .card .card-button {
+  margin-right: 2vh;
+}
+body .card .card-button #card-network {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid black;
+  -webkit-filter: invert(1);
+}
+body .card .card-button .card-overview {
+  width: 100vh;
 }
 
 #search-button {
@@ -255,7 +315,7 @@ html {
 }
 .slideshow-text a {
   text-decoration: none;
-  width: fit-content;
+  width: max-content;
   color: #fff;
 }
 @media (max-width: 767px) {

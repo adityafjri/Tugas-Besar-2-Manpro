@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
     <title>Home test</title>
 </head>
-<body id="body-test">
+<body class="body-test">
     <div class="wrapper">
         <h1 id="body-title">
             Visualisasi data dari buku Game of Thrones
         </h1>
-        <a href="#" target="_blank" id="redirect-to-feature">Mulai Mengeksplorasi Data</a>
+        <a href="home" id="redirect-to-feature">Mulai Mengeksplorasi Data</a>
         <h2>Buku ini juga diadaptasi kedalam film serial dengan judul yang sama</h2>
         <div class="card">
             <div class="image">
@@ -45,7 +45,7 @@
         let title = document.getElementById('card-button-title');
         let credit = document.getElementById('card-credit');
         let network = document.getElementById('card-network');
-        let backdrop = document.getElementById('body-test');
+        let backdrop = document.querySelector('.body-test');
         let poster = document.getElementById('card-poster');
 
         test().then(data => {

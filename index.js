@@ -1,12 +1,21 @@
 import express from 'express';
 import mysql from 'mysql'
 import path, { resolve } from 'path';
+import bodyParser from 'body-parser';
 
 const port = 8080;
 const app = express();
 app.set('view engine','ejs');
-app.use(express.urlencoded({extended:true}));
+
 app.use(express.static(path.resolve('public')));
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 
 const pool = mysql.createPool({
     user:'root',
@@ -14,8 +23,9 @@ const pool = mysql.createPool({
     database:'book',
     host:'localhost',
     dateStrings:true,
-    connectionLimit:10
+    // connectionLimit:10
 })
+
 
 const dbConnnect = () =>{
     return new Promise((resolve,rejects)=>{
@@ -52,15 +62,64 @@ app.get('/bar-chart',async(req,res)=>{
 })
 
 
+const autoFill = (conn,name,book) => {
+    return new Promise((resolve,reject) => {
+        conn.query(`SELECT Target,Source,weight FROM book_of_trones WHERE Source LIKE '%${name}%' AND book = ${book} LIMIT 10 `,(err,result) => {
+            if(err){
+                reject(err);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
+const testCon = (conn,nama) => {
+    return new Promise((resolve,reject) => {
+        conn.query(`SELECT Target,Source,weight FROM book_of_trones WHERE Source LIKE '%${nama}%' LIMIT 10 `,(err,result) => {
+            if(err){
+                reject(err);
+            }else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+app.get('/test-pagination',async(req,res) => {
+    const conn = await dbConnnect();
+    const search = req.body.search;
+    let result = await testCon(conn,search);
+    console.log(result);
+    res.render('test-pagination',{
+        result
+    });
+})
+app.post('/test-pagination',async(req,res) => {
+    const conn = await dbConnnect();
+    const name = req.body.search;
+    const book = req.body.book;
+    const result = await autoFill(conn,name,book);
+    const arr = Object.entries(result);
+
+    console.log(result)
+    res.render('test-pagination',{
+        result
+    });
+})
+
+
+
 app.get('/grafik.ejs',async(req,res)=>{
     res.render('grafik')
 })
 app.get('/graph.ejs',async(req,res)=>{
     res.render('graph')
 })
+
 app.listen(port,()=>{
     console.log('ready!');
 });
+
 
 
 const getBook = ((conn)=>{
@@ -89,5 +148,9 @@ const getTopTen = ((conn,book)=>{
 //on progress
 
 app.get('/',async(req,res)=>{
+    res.render('landing')
+});
+
+app.get('/home',async(req,res)=>{
     res.render('home')
 });

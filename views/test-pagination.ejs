@@ -4,179 +4,141 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script src="https://kit.fontawesome.com/8a2b672019.js" crossorigin="anonymous"></script>
+
     <title>Document</title>
 </head>
-<body>
-    <!-- pilih buku sama search by chara name -->
-    <form>
-        <fieldset>
-          <legend>Silahkan Pilih Buku :</legend>
-          <div>
-            <input type="radio" id="Buku1" name="buku" value="buku1" />
-            <label for="Buku1">Buku 1</label>
-            <input type="radio" id="Buku2" name="buku" value="buku2" />
-            <label for="Buku2">Buku 2</label>
-            <input type="radio" id="Buku3" name="buku" value="buku3" />
-            <label for="Buku3">Buku 3</label>
-            <input type="radio" id="Buku4" name="buku" value="buku4" />
-            <label for="Buku4">Buku 4</label>
-            <input type="radio" id="Buku5" name="buku" value="buku5" />
-            <label for="Buku5">Buku 5</label>
-          </div>
-          <div>
-            <input type="text" id="search">
-            <button type="submit">Submit</button>
-          </div>
-        </fieldset>
-    </form>
-
-    <!-- table hasil -->
-    <table id="catTable">
-        <thead>
-          <tr>
-            <th data-sort="name">Name</th>
-            <th data-sort="age">Age</th>
-            <th data-sort="breed">Breed</th>
-            <th data-sort="gender">Gender</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="4"><i>Data sedang diambil ...</i></td></tr>
-        </tbody>
-      </table>
-      
-
-    <button id="prevButton">Previous</button> 
-    <button id="nextButton">Next</button>
+<body class="body-test">
     <script>
-        // manggil fungsi pas halaman ke load
-        document.addEventListener('DOMContentLoaded', init, false);
+        let backdrop = document.querySelector('.body-test');
 
-        let data, table, sortCol;
-        let sortAsc = false;
-        // jumlah baris
-        const pageSize = 10;
-        // halaman table
-        let curPage = 1;
-
-
-        async function init() {
-            // target table
-            table = document.querySelector('#catTable tbody');
-            // api call
-            let resp = await fetch('https://www.raymondcamden.com/.netlify/functions/get-cats');
-            data = await resp.json();
-            // render hasil
-            renderTable();
-
-            // trigger event buat sort table
-            document.querySelectorAll('#catTable thead tr th').forEach(t => {
-                t.addEventListener('click', sort, false);
-            });
-
-            // trigger event tombol pindah halaman table
-            document.querySelector('#nextButton').addEventListener('click', nextPage, false);
-            document.querySelector('#prevButton').addEventListener('click', previousPage, false);
+        async function test(){
+            let response = await fetch('https://api.themoviedb.org/3/tv/1399?api_key=7923da2c216e5b58f54a684150f33ba9&language=en-US');
+            let data = await response.json();
+            return data;
         }
 
-        // fungsi buat render table make data dari api call
-        function renderTable() {
-            let result = '';
-            data.filter((row, index) => {
-                let start = (curPage-1)*pageSize;
-                let end =curPage*pageSize;
-                if(index >= start && index < end) return true;
-            }).forEach(c => {
-            result += `<tr>
-            <td>${c.name}</td>
-            <td>${c.age}</td>
-            <td>${c.breed}</td>
-            <td>${c.gender}</td>
-            </tr>`;
-            });
-            table.innerHTML = result;
-        }
-  
-        // fungsi buat sort (klik table head)   
-        function sort(e) {
-            let thisSort = e.target.dataset.sort;
-            if(sortCol === thisSort) sortAsc = !sortAsc;
-            sortCol = thisSort;
-            data.sort((a, b) => {
-            if(a[sortCol] < b[sortCol]) return sortAsc?1:-1;
-            if(a[sortCol] > b[sortCol]) return sortAsc?-1:1;
-            return 0;
-            });
-            renderTable();
-        }
-        // fungsi buat pindah halaman table
-        function previousPage() {
-            if(curPage > 1) curPage--;
-            renderTable();
-        }
-        
-        function nextPage() {
-            if((curPage * pageSize) < data.length) curPage++;
-            renderTable();
-        }
+        test().then(data => {
+            backdrop.setAttribute("style",`background-image: url('https://image.tmdb.org/t/p/original/${data.backdrop_path}')`);
+        });
     </script>
-
-    <pre id="choosen-radio"></pre>
-    <pre id="search-value"></pre>
-    <h2 id="trivia-title" style="display: none;">
-        Trivia
-    </h2>
-    <div id="trivia-card" style="display: none; flex-direction: row; align-items:flex-start; justify-content: space-evenly;">
-        <div class="trivia-item">
-            <img alt="" id="trivia-poster" style="height: 40vh;">
+    <!-- pilih buku sama search by chara name -->
+    <div class="wrapper">
+        <div id="pagination-content">
+            <form action="test-pagination" method="post">
+                
+                    <div class="form-group">
+                        <select class="form-select" name="book" id="choosen-book" aria-label="Default select example">
+                            <!-- <option disabled>Choose a Book</option> -->
+                            <option value="1">Book1</option>
+                            <option value="2">Book2</option>
+                            <option value="3">Book3</option>
+                            <option value="4">Book4</option>
+                            <option value="5">Book5</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="search" name="search" id="search">
+                        <button type="submit">Cari <i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                
+            </form>
+        
+            <!-- table hasil -->
+            <div class="tbl-header">
+                <table id="myTable" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                      <tr>
+                        <th data-sort="source">Source</th>
+                        <th data-sort="target">Target</th>
+                        <th data-sort="weight">Weight</th>
+                      </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content" cellpadding="0" cellspacing="0" border="0">
+                <table>
+                    <tbody>
+                        <% for(const row of result) { %>
+                            <tr>
+                                <td><%= row.Source %></td>
+                                <td><%= row.Target %></td>
+                                <td><%= row.weight %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+              
+            
+        
+            <!-- <button id="prevButton">Previous</button>  -->
+            <button id="nextButton">Trivia</button>
+        
+             
+        
+            <pre id="choosen-radio"></pre>
+            <pre id="search-value"></pre>
+            
+            <h2 id="trivia-title" style="display: none;">
+                Trivia
+            </h2>
+            <div id="trivia-card">
+                <div class="trivia-item">
+                    <img alt="" id="trivia-poster">
+                </div>
+                <div class="trivia-item">
+                    <h3>Nama Alias : </h3>
+                    <ol id="character-alias" style="overflow: scroll;"></ol>
+                </div>
+                <div class="trivia-item">
+                    <h3>Muncul di : </h3>
+                    <ol id="character-series"></ol>
+                </div>
+                <div class="trivia-item">
+                    <h3>Personal : </h3>
+                    <ol id="character-personal">
+                        <li id="personal-name">Nama Lengkap : </li>
+                        <li id="personal-gender">Jenis Kelamin : </li>
+                        <li id="personal-culture">Ras : </li>
+                        <li id="personal-born">Lahir : </li>
+                        <li id="personal-died">Mati : </li>
+                    </ol>
+                </div>
+        
+            </div>
         </div>
-        <div class="trivia-item">
-            <h3>Nama Alias : </h3>
-            <ol id="character-alias" style="overflow: scroll;"></ol>
-        </div>
-        <div class="trivia-item">
-            <h3>Muncul di : </h3>
-            <ol id="character-series"></ol>
-        </div>
-        <div class="trivia-item">
-            <h3>Personal : </h3>
-            <ol id="character-personal">
-                <li id="personal-name">Nama Lengkap : </li>
-                <li id="personal-gender">Jenis Kelamin : </li>
-                <li id="personal-culture">Ras : </li>
-                <li id="personal-born">Lahir : </li>
-                <li id="personal-died">Mati : </li>
-            </ol>
-        </div>
-
     </div>
     
     
     <script>
-        const form = document.querySelector("form");
-        const input = document.querySelector("#search");
-        const radio_output = document.querySelector("#choosen-radio");
-        const search_value = document.querySelector("#search-value");
+        const form = document.querySelector('#nextButton');
+        const input = document.getElementById("search");
+        const input2 = document.getElementById('choosen-book');
+        const radio_output = document.getElementById("choosen-radio");
+        const search_value = document.getElementById("search-value");
         const trivia_alias = document.getElementById('character-alias');
         const trivia_series = document.getElementById('character-series');
         const trivia_card = document.getElementById('trivia-card');
         const trivia_title = document.getElementById('trivia-title');
         const trivia_poster = document.getElementById('trivia-poster');
+        const x = document.querySelector('td').firstChild.textContent;
 
         form.addEventListener(
-            "submit",
+            "click",
             (event) => {
-                const data = new FormData(form);
-                let output = "";
-                for (const entry of data) {
-                output = `${output}${entry[0]}=${entry[1]}\r`;
-                }
-                radio_output.innerText = output;
-                search_value.innerText = input.value;
-                event.preventDefault();
+                // const data = new FormData(form);
+                // let output = "";
+                // for (const entry of data) {
+                // output = `${output}${entry[0]}=${entry[1]}\r`;
+                // }
+                // search_value.innerHTML = input.value;
+                // event.preventDefault();
+                    console.log('setan')
             
-            
-            
+                search_value.innerHTML = x.toLowerCase();
+                
                 let filter;
                 let iter = 1;
                 let char_id = 999;
@@ -188,7 +150,7 @@
                     filter = "Jon Snow"
                     iter = 0;
                     char_id = 2;
-                }else if (search_value.innerHTML.includes("eddard") || search_value.innerHTML.includes("ned") || search_value.innerHTML.includes("stark")){
+                }else if (search_value.innerHTML.includes("eddard") || search_value.innerHTML.includes("ned")){
                     filter = "Eddard Stark"
                     iter = 0;
                     char_id = 6;
@@ -282,12 +244,17 @@
                 async function trivia_call(){
                     let response = await fetch(`https://www.anapioficeandfire.com/api/characters/?name=${filter}`);
                     let data = await response.json();
+                    console.log(data);
+
                     return data;
                 }
                 async function trivia_call_poster(){
                     let response = await fetch(`https://thronesapi.com/api/v2/Characters/${char_id}`);
                     let data = await response.json();
+                    console.log(data);
+
                     return data;
+
                 }
                 trivia_call_poster().then(data =>{
                     trivia_poster.setAttribute("src", `${data.imageUrl}`);

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css">
     <script src="https://kit.fontawesome.com/8a2b672019.js" crossorigin="anonymous"></script>
 
-    <title>Document</title>
+    <title>Search Character</title>
 </head>
 <body class="body-test">
     <script>
@@ -23,28 +23,65 @@
             backdrop.setAttribute("style",`background-image: url('https://image.tmdb.org/t/p/original/${data.backdrop_path}')`);
         });
     </script>
-    <!-- pilih buku sama search by chara name -->
+
+    <div class="navigation" id="navigation">
+        <div class="nav-item">
+            <a href="/home">
+                <i class="fa-solid fa-house fa-2x" style="color: black;"></i>
+            </a>
+        </div>
+
+        <div class="nav-item">
+            <ul>
+                <a href="/bar-chart">
+                    <li>Bar Chart</li>
+                </a>
+                <a href="/graph">
+                    <li>Undirected</li>
+                </a>
+                <a href="/test-pagination">
+                    <li>Search</li>
+                </a>
+            </ul>
+        </div>
+        <div class="nav-item"></div>
+    </div>
+
+    <script>
+        // const body = document.querySelector('body');
+
+        function onScroll() {
+            var element = document.getElementById("navigation");
+            console.log('event')
+            element.classList.add("event");
+        }
+
+        document.addEventListener("scroll",onScroll());
+
+        
+    </script>
+
     <div class="wrapper">
         <div id="pagination-content">
             <form action="test-pagination" method="post">
                 
-                    <div class="form-group">
-                        <select class="form-select" name="book" id="choosen-book" aria-label="Default select example">
-                            <!-- <option disabled>Choose a Book</option> -->
-                            <option value="1">Book1</option>
-                            <option value="2">Book2</option>
-                            <option value="3">Book3</option>
-                            <option value="4">Book4</option>
-                            <option value="5">Book5</option>
-                        </select>
-                    </div>
-                    <div>
-                        <input type="search" name="search" id="search">
-                        <button type="submit">Cari <i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
+                <div class="form-group">
+                    <select class="form-select" name="book" id="choosen-book" aria-label="Default select example">
+                        <!-- <option disabled>Choose a Book</option> -->
+                        <option value="1">Book1</option>
+                        <option value="2">Book2</option>
+                        <option value="3">Book3</option>
+                        <option value="4">Book4</option>
+                        <option value="5">Book5</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="search" name="search" id="search">
+                    <button type="submit">Cari <i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
                 
             </form>
-        
+            <h3 id="search-feedback">Hasil Pencarian Untuk : "<%= name %>" di Buku <%= book %></h3>
             <!-- table hasil -->
             <div class="tbl-header">
                 <table id="myTable" cellpadding="0" cellspacing="0" border="0">
@@ -70,7 +107,7 @@
                     </tbody>
                 </table>
             </div>
-              
+            
             
         
             <!-- <button id="prevButton">Previous</button>  -->
@@ -135,7 +172,6 @@
                 // }
                 // search_value.innerHTML = input.value;
                 // event.preventDefault();
-                    console.log('setan')
             
                 search_value.innerHTML = x.toLowerCase();
                 

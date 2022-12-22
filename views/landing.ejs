@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <title>Home test</title>
+</head>
+<body class="body-test">
+    <div class="wrapper">
+        <h1 id="body-title">
+            Visualisasi data dari buku Game of Thrones
+        </h1>
+        <h2 style="text-align: center;">
+            Website ini memiliki fitur untuk menampilkan grafik bar secara dinamis <br>(jika data di tabel basisdata berubah,
+            grafik juga berubah)
+        </h2>
+        <h2>
+            dan Fitur untuk melakukan pencarian
+        </h2>
+        <a href="home" id="redirect-to-feature">Mulai Mengeksplorasi Data</a>
+        <h2>Buku ini juga diadaptasi kedalam film serial dengan judul yang sama</h2>
+        
+        <div class="card">
+            <div class="image">
+                <img alt="" height="400" width="250px" id="card-poster">
+            </div>
+            <div class="card-button">
+                <h1 id="card-button-title"></h1>
+                <p>Tersedia di<p>
+                <a  target="_blank" id="card-button-link">
+                    <img  id="card-network" alt="" width="5%">
+                </a>
+                <div class="card-overview">
+                    <h2>Sinopsis</h2>
+                    <p id="card-text"></p>
+                    <h3>Dibuat Oleh :</h3>
+                    <p id="card-credit"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function test(){
+            let response = await fetch('https://api.themoviedb.org/3/tv/1399?api_key=7923da2c216e5b58f54a684150f33ba9&language=en-US');
+            let data = await response.json();
+            return data;
+        }
+        
+        let link = document.getElementById('card-button-link');
+        let para = document.getElementById('card-text');
+        let title = document.getElementById('card-button-title');
+        let credit = document.getElementById('card-credit');
+        let network = document.getElementById('card-network');
+        let backdrop = document.querySelector('.body-test');
+        let poster = document.getElementById('card-poster');
+
+        test().then(data => {
+            backdrop.setAttribute("style",`background-image: url('https://image.tmdb.org/t/p/original/${data.backdrop_path}')`);
+            title.innerHTML += (data.name);
+            para.innerHTML += (data.overview);
+            link.setAttribute("href",data.homepage);
+            poster.setAttribute("src",`https://image.tmdb.org/t/p/original/${data.poster_path}`);
+            network.setAttribute("src",`https://image.tmdb.org/t/p/original/${data.networks[0].logo_path}`);
+            for (var i = 0; i < (data.created_by).length; i++){
+                credit.innerHTML += `${(data.created_by[i].name)}<br>`
+            };
+        });
+    </script>
+</body>
+</html>

@@ -4,7 +4,8 @@
   "description": "Tugas besar 2 mata kuliah manajemen proyek",
   "main": "index.js",
   "scripts": {
-    "sass": "sass --watch assets/scss/:assets/css"
+    "sass": "sass --watch public/assets/scss/:public/assets/css",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,8 +16,16 @@
   "bugs": {
     "url": "https://github.com/adityafjri/Tugas-Besar-2-Manpro/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/adityafjri/Tugas-Besar-2-Manpro#readme",
   "dependencies": {
+    "chart.js": "^4.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
     "sass": "^1.56.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

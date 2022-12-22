@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script src="https://kit.fontawesome.com/8a2b672019.js" crossorigin="anonymous"></script>
+
+    <title>Search Character</title>
+</head>
+<body class="body-test">
+    <script>
+        let backdrop = document.querySelector('.body-test');
+
+        async function test(){
+            let response = await fetch('https://api.themoviedb.org/3/tv/1399?api_key=7923da2c216e5b58f54a684150f33ba9&language=en-US');
+            let data = await response.json();
+            return data;
+        }
+
+        test().then(data => {
+            backdrop.setAttribute("style",`background-image: url('https://image.tmdb.org/t/p/original/${data.backdrop_path}')`);
+        });
+    </script>
+
+    <div class="navigation" id="navigation">
+        <div class="nav-item">
+            <a href="/home">
+                <i class="fa-solid fa-house fa-2x" style="color: black;"></i>
+            </a>
+        </div>
+
+        <div class="nav-item">
+            <ul>
+                <a href="/bar-chart">
+                    <li>Bar Chart</li>
+                </a>
+                <a href="/graph">
+                    <li>Undirected</li>
+                </a>
+                <a href="/test-pagination">
+                    <li>Search</li>
+                </a>
+            </ul>
+        </div>
+        <div class="nav-item"></div>
+    </div>
+
+    <script>
+        // const body = document.querySelector('body');
+
+        function onScroll() {
+            var element = document.getElementById("navigation");
+            console.log('event')
+            element.classList.add("event");
+        }
+
+        document.addEventListener("scroll",onScroll());
+
+        
+    </script>
+
+    <div class="wrapper">
+        <div id="pagination-content">
+            <form action="test-pagination" method="post">
+                
+                <div class="form-group">
+                    <select class="form-select" name="book" id="choosen-book" aria-label="Default select example">
+                        <!-- <option disabled>Choose a Book</option> -->
+                        <option value="1" selected>Book1</option>
+                        <option value="2">Book2</option>
+                        <option value="3">Book3</option>
+                        <option value="4">Book4</option>
+                        <option value="5">Book5</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="search" name="search" id="search" value="daenerys">
+                    <button type="submit">Cari <i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                
+            </form>
+            <!-- table hasil -->
+            <div class="tbl-header">
+                <table id="myTable" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                      <tr>
+                        <th data-sort="source">Source</th>
+                        <th data-sort="target">Target</th>
+                        <th data-sort="weight">Weight</th>
+                      </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content" cellpadding="0" cellspacing="0" border="0">
+                <table>
+                    <tbody>
+                        <% for(const row of result) { %>
+                            <tr>
+                                <td><%= row.Source %></td>
+                                <td><%= row.Target %></td>
+                                <td><%= row.weight %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+        
+            <!-- <button id="prevButton">Previous</button>  -->
+            <button id="nextButton">Trivia</button>
+        
+             
+        
+            <pre id="choosen-radio"></pre>
+            <pre id="search-value"></pre>
+            
+            <h2 id="trivia-title" style="display: none; background-color: black; padding: 1vh;">
+                Trivia
+            </h2>
+            <div id="trivia-card">
+                <div class="trivia-item">
+                    <img alt="" id="trivia-poster">
+                </div>
+                <div class="trivia-item">
+                    <h3>Nama Alias : </h3>
+                    <ol id="character-alias" style="overflow: scroll;"></ol>
+                </div>
+                <div class="trivia-item">
+                    <h3>Muncul di : </h3>
+                    <ol id="character-series"></ol>
+                </div>
+                <div class="trivia-item">
+                    <h3>Personal : </h3>
+                    <ol id="character-personal">
+                        <li id="personal-name">Nama Lengkap : </li>
+                        <li id="personal-gender">Jenis Kelamin : </li>
+                        <li id="personal-culture">Ras : </li>
+                        <li id="personal-born">Lahir : </li>
+                        <li id="personal-died">Mati : </li>
+                    </ol>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        const form = document.querySelector('#nextButton');
+        const input = document.getElementById("search");
+        const input2 = document.getElementById('choosen-book');
+        const radio_output = document.getElementById("choosen-radio");
+        const search_value = document.getElementById("search-value");
+        const trivia_alias = document.getElementById('character-alias');
+        const trivia_series = document.getElementById('character-series');
+        const trivia_card = document.getElementById('trivia-card');
+        const trivia_title = document.getElementById('trivia-title');
+        const trivia_poster = document.getElementById('trivia-poster');
+        const x = document.querySelector('td').firstChild.textContent;
+
+        form.addEventListener(
+            "click",
+            (event) => {
+                // const data = new FormData(form);
+                // let output = "";
+                // for (const entry of data) {
+                // output = `${output}${entry[0]}=${entry[1]}\r`;
+                // }
+                // search_value.innerHTML = input.value;
+                // event.preventDefault();
+            
+                search_value.innerHTML = x.toLowerCase();
+                
+                let filter;
+                let iter = 1;
+                let char_id = 999;
+                if( search_value.innerHTML.includes("daenerys")){
+                    filter = "Daenerys Targaryen"
+                    iter = 1;
+                    char_id = 0;
+                }else if(search_value.innerHTML.includes("jon") || search_value.innerHTML.includes("snow")){
+                    filter = "Jon Snow"
+                    iter = 0;
+                    char_id = 2;
+                }else if (search_value.innerHTML.includes("eddard") || search_value.innerHTML.includes("ned")){
+                    filter = "Eddard Stark"
+                    iter = 0;
+                    char_id = 6;
+                }else if (search_value.innerHTML.includes("brandon") || search_value.innerHTML.includes("bran-") || search_value.innerHTML.includes("bran stark") || search_value.innerHTML.includes("bran")){
+                    filter = "Brandon Stark";
+                    iter = 2;
+                    char_id = 5;
+                }else if (search_value.innerHTML.includes("catelyn") || search_value.innerHTML.includes("catelyn stark") || search_value.innerHTML.includes("catelyn tully")){
+                    filter = "Catelyn Stark";
+                    iter = 0;
+                    char_id = 10;
+                }else if (search_value.innerHTML.includes("arya") || search_value.innerHTML.includes("arya stark")){
+                    filter = "Arya Stark";
+                    iter = 0;
+                    char_id = 3;
+                }else if (search_value.innerHTML.includes("cersei") || search_value.innerHTML.includes("cersei lannister")){
+                    filter = "Cersei Lannister";
+                    iter = 0;
+                    char_id = 9;
+                }else if (search_value.innerHTML.includes("joffrey") || search_value.innerHTML.includes("joffrey baratheon")){
+                    filter = "Joffrey Baratheon";
+                    iter = 0;
+                    char_id = 13;
+                }else if (search_value.innerHTML.includes("jaime") || search_value.innerHTML.includes("jaime lannister")){
+                    filter = "Jaime Lannister";
+                    iter = 0;
+                    char_id = 8;
+                }else if (search_value.innerHTML.includes("barristan") || search_value.innerHTML.includes("selmy") || search_value.innerHTML.includes("barristan-selmy")){
+                    filter = "Barristan Selmy";
+                    iter = 0;
+                    char_id = 999
+                }else if (search_value.innerHTML.includes("renly") || search_value.innerHTML.includes("gendry")){
+                    filter = "Renly Baratheon";
+                    iter = 0;
+                    char_id = 32;
+                }else if (search_value.innerHTML.includes("davos") || search_value.innerHTML.includes("davos seaworth")){
+                    filter = "Davos Seaworth";
+                    iter = 0;
+                    char_id = 17;
+                }else if (search_value.innerHTML.includes("brienne") || search_value.innerHTML.includes("brienne tarth") || search_value.innerHTML.includes("brienne of tarth")){
+                    filter = "Brienne of Tarth";
+                    iter = 0;
+                    char_id = 23;
+                }else if (search_value.innerHTML.includes("arianne") || search_value.innerHTML.includes("arianne martell")){
+                    filter = "Arianne Martell";
+                    iter = 0;
+                    char_id = 999;
+                }else if (search_value.innerHTML.includes("margaery") || search_value.innerHTML.includes("margaery tyrell")){
+                    filter = "Margaery Tyrell";
+                    iter = 0;
+                    char_id = 21;
+                }else if (search_value.innerHTML.includes("aeron") || search_value.innerHTML.includes("aeron geryjoy")){
+                    filter = "Aeron Greyjoy";
+                    iter = 0;
+                    char_id = 999;
+                }else if (search_value.innerHTML.includes("aemon") || search_value.innerHTML.includes("aemon targaryen")){
+                    filter = "Aemon Targaryen";
+                    iter = 0;
+                    char_id = 999;
+                }else if (search_value.innerHTML.includes("areo") || search_value.innerHTML.includes("areo hotah")){
+                    filter = "Areo Hotah";
+                    iter = 0;
+                    char_id = 999;
+                }else if (search_value.innerHTML.includes("euron") || search_value.innerHTML.includes("euron greyjoy")){
+                    filter = "Euron Greyjoy";
+                    iter = 0;
+                    char_id = 46;
+                }else if (search_value.innerHTML.includes("ramsay") || search_value.innerHTML.includes("ramsay bolton") || search_value.innerHTML.includes("ramsay snow")){
+                    filter = "Ramsay Snow"
+                    iter = 0;
+                    char_id = 35;
+                }else if (search_value.innerHTML.includes("aegon") || search_value.innerHTML.includes("aegon targaryen")){
+                    filter = "Aegon Targaryen";
+                    iter = 0;
+                    char_id = 999;
+                }else if (search_value.innerHTML.includes("daario") || search_value.innerHTML.includes("daario naharis")){
+                    filter = "Daario Naharis";
+                    iter = 0;
+                    char_id = 29;
+                }else if (search_value.innerHTML.includes("haldon")){
+                    filter = "haldon";
+                    iter = 0;
+                    char_id = 999;
+                }else if ( search_value.innerHTML.includes("jon connington")){
+                    filter = "Jon Connington";
+                    iter = 0;
+                    char_id = 999;
+                }
+
+                // api call
+                async function trivia_call(){
+                    let response = await fetch(`https://www.anapioficeandfire.com/api/characters/?name=${filter}`);
+                    let data = await response.json();
+                    console.log(data);
+
+                    return data;
+                }
+                async function trivia_call_poster(){
+                    let response = await fetch(`https://thronesapi.com/api/v2/Characters/${char_id}`);
+                    let data = await response.json();
+                    console.log(data);
+
+                    return data;
+
+                }
+                trivia_call_poster().then(data =>{
+                    trivia_poster.setAttribute("src", `${data.imageUrl}`);
+                });
+                trivia_call().then(data =>{
+                    trivia_card.style.display = "flex";
+                    trivia_title.style.display = "block";
+                    trivia_alias.innerHTML = '';
+                    trivia_series.innerHTML = '';
+                    document.getElementById('personal-name').innerHTML = "Nama Lengkap : ";
+                    document.getElementById('personal-gender').innerHTML = "Jenis Kelamin : ";
+                    document.getElementById('personal-culture').innerHTML = "Ras : ";
+                    document.getElementById('personal-born').innerHTML = "Lahir : ";
+                    document.getElementById('personal-died').innerHTML = "Mati : ";
+
+
+                    for(var i = 0; i < (data[iter].aliases).length; i++){
+                        trivia_alias.innerHTML += `<li>${(data[iter].aliases[i])}</li>`;
+                    }
+                    for(var i = 0; i < (data[iter].tvSeries).length; i++){
+                        trivia_series.innerHTML += `<li>${(data[iter].tvSeries[i])}</li>`;
+                    }
+                    document.getElementById('personal-name').innerHTML += ` ${data[iter].name}`;
+                    document.getElementById('personal-gender').innerHTML += ` ${data[iter].gender}`;
+                    document.getElementById('personal-culture').innerHTML += ` ${data[iter].culture}`;
+                    document.getElementById('personal-born').innerHTML += ` ${data[iter].born}`;
+                    document.getElementById('personal-died').innerHTML += ` ${data[iter].died}`;
+                });
+            },false
+        );
+    </script>
+</body>
+</html>

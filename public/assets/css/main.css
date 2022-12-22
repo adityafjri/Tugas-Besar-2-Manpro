@@ -15,6 +15,33 @@ body.body-test {
   background-size: cover;
   background-attachment: fixed;
 }
+body.body-test .form-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 40vh;
+}
+body.body-test .form-bar select {
+  width: 20vh;
+  height: 6vh;
+  text-align: center;
+  border: none;
+  border-radius: 20px;
+  background-color: white;
+}
+body.body-test .form-bar input {
+  width: 10vh;
+  border: 2px solid white;
+  border-radius: 20px;
+  background-color: white;
+}
+body.body-test .form-bar input:hover {
+  cursor: pointer;
+  background-color: black;
+  border-color: white;
+  color: white;
+  transition: all 0.3s;
+}
 body.body-test .wrapper {
   display: flex;
   flex-direction: column;
@@ -75,7 +102,41 @@ body .card .card-button .card-overview {
   width: 100vh;
 }
 
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  position: absolute;
+  width: 100%;
+}
+.navigation.event {
+  position: fixed;
+  transition: all 0.3s;
+}
+.navigation .nav-item:first-child {
+  display: flex;
+  margin-left: 5vh;
+  align-items: center;
+  justify-content: center;
+}
+.navigation ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50vh;
+}
+.navigation ul li {
+  list-style: none;
+}
+.navigation ul a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+
 #pagination-content {
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,12 +159,19 @@ body .card .card-button .card-overview {
 #pagination-content #search-value {
   display: none;
 }
+#pagination-content #search-feedback {
+  color: white;
+  font-size: 24px;
+  background-color: #000000;
+  padding: 1vh;
+}
 #pagination-content form {
   width: 100%;
   padding: 0 2vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 5vh;
 }
 #pagination-content form #search {
   width: 50vh;
@@ -119,7 +187,7 @@ body .card .card-button .card-overview {
   height: 6vh;
   width: 10vh;
   border-radius: 15px;
-  border: none;
+  border: 2px solid white;
   background-color: white;
   margin-right: 30vh;
 }
@@ -136,6 +204,7 @@ body .card .card-button .card-overview {
   border: none;
   margin-left: 30vh;
   background-color: white;
+  text-align: center;
 }
 #pagination-content table {
   width: 150vh;

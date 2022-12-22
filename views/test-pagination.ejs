@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <select class="form-select" name="book" id="choosen-book" aria-label="Default select example">
                         <!-- <option disabled>Choose a Book</option> -->
-                        <option value="1">Book1</option>
+                        <option value="1" selected>Book1</option>
                         <option value="2">Book2</option>
                         <option value="3">Book3</option>
                         <option value="4">Book4</option>
@@ -76,7 +76,7 @@
                     </select>
                 </div>
                 <div>
-                    <input type="search" name="search" id="search">
+                    <input type="search" name="search" id="search" value="daenerys">
                     <button type="submit">Cari <i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 
@@ -118,7 +118,7 @@
             <pre id="choosen-radio"></pre>
             <pre id="search-value"></pre>
             
-            <h2 id="trivia-title" style="display: none;">
+            <h2 id="trivia-title" style="display: none; background-color: black; padding: 1vh;">
                 Trivia
             </h2>
             <div id="trivia-card">

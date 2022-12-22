@@ -18,6 +18,36 @@ body{
     background-size:cover;
     background-attachment: fixed;
 
+    .form-bar{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 40vh;
+
+      select{
+        width: 20vh;
+        height: 6vh;
+        text-align: center;
+        border: none;
+        border-radius: 20px;
+        background-color: white;
+      }
+      input{
+        width: 10vh;
+        border: 2px solid white;
+        border-radius: 20px;
+        background-color: white;
+
+        &:hover{
+          cursor: pointer;
+          background-color: black;
+          border-color: white;
+          color: white;
+          transition: all 0.3s;
+        }
+      }
+    }
+
     .wrapper{
       display: flex;
       flex-direction: column;
@@ -94,9 +124,41 @@ body{
 
 // misc
 
+.navigation{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  &.event{
+    position: fixed;
+    transition: all 0.3s;
+  }
+  .nav-item:first-child{
+    display: flex;
+    margin-left: 5vh;
+    align-items: center;
+    justify-content: center;
+  }
+  ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50vh;
+    li{
+      list-style: none;
+    }
+    a{
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+    }
+  }
+}
 // trivia
 #pagination-content{
-
+  margin-top: 5vh;
   #nextButton{
     margin-top: 5vh;
     width: 50vh;
@@ -117,6 +179,12 @@ body{
     // background-color: ;
     
   }
+  #search-feedback{
+    color: white;
+    font-size: 24px;
+    background-color: #000000;
+    padding: 1vh;
+  }
   
   display: flex;
   flex-direction: column;
@@ -129,6 +197,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 5vh;
     // background-color: rgba($color: #080808, $alpha: 0.9);
     // background-color: red;
 
@@ -146,7 +215,7 @@ body{
       height: 6vh;
       width: 10vh;
       border-radius: 15px;
-      border: none;
+      border: 2px solid white;
       background-color: white;
       margin-right: 30vh;
 
@@ -164,7 +233,7 @@ body{
       border: none;
       margin-left: 30vh;
       background-color: white;
-
+      text-align: center;
     }
   }
 

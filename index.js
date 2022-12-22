@@ -64,7 +64,7 @@ app.get('/bar-chart',async(req,res)=>{
 
 const autoFill = (conn,name,book) => {
     return new Promise((resolve,reject) => {
-        conn.query(`SELECT Target,Source,weight FROM book_of_trones WHERE Source LIKE '%${name}%' AND book = ${book} LIMIT 10 `,(err,result) => {
+        conn.query(`SELECT Target,Source,weight,book FROM book_of_trones WHERE Source LIKE '%${name}%' AND book = ${book} LIMIT 10 `,(err,result) => {
             if(err){
                 reject(err);
             }else{
@@ -103,7 +103,9 @@ app.post('/test-pagination',async(req,res) => {
 
     console.log(result)
     res.render('test-pagination',{
-        result
+        result,
+        name:name,
+        book:book,
     });
 })
 

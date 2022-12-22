@@ -7,24 +7,75 @@
     <link rel="stylesheet" href="../assets/css/main.css">
     <title>Document</title>
 </head>
-<body>
-    <h2>Histogram</h2>
+<body class="body-test">
+    <script>
+        let backdrop = document.querySelector('.body-test');
 
-    <form action="/bar-chart?Buku=1" method="GET">
-        <label for="Buku" class="select-dropdown">
-            <select id="Buku" name="Buku">
-                <!-- <option value="0">Silahkan Pilih...</option> -->
-                <%for (const i of book){%>
-                    <option value="<%=i.book %>"> Book <%=i.book %></option>
+        async function test(){
+            let response = await fetch('https://api.themoviedb.org/3/tv/1399?api_key=7923da2c216e5b58f54a684150f33ba9&language=en-US');
+            let data = await response.json();
+            return data;
+        }
 
-                <%}%>
-            </select>
-        </label>
-        <input type="submit" value="cari">
-    </form>
-    
-    <div class="chart">
-        <canvas id="my_chart2" class="chart-canvas"></canvas>
+        test().then(data => {
+            backdrop.setAttribute("style",`background-image: url('https://image.tmdb.org/t/p/original/${data.backdrop_path}')`);
+        });
+    </script>
+
+    <div class="navigation" id="navigation" style="z-index: 10;">
+        <div class="nav-item">
+            <a href="/home">a
+                <i class="fa-solid fa-house fa-2x" style="color: black;"></i>
+            </a>
+        </div>
+
+        <div class="nav-item">
+            <ul>
+                <a href="/bar-chart">
+                    <li>Bar Chart</li>
+                </a>
+                <a href="/graph">
+                    <li>Undirected</li>
+                </a>
+                <a href="/test-pagination">
+                    <li>Search</li>
+                </a>
+            </ul>
+        </div>
+        <div class="nav-item"></div>
+    </div>
+
+    <script>
+        // const body = document.querySelector('body');
+
+        function onScroll() {
+            var element = document.getElementById("navigation");
+            console.log('event')
+            element.classList.add("event");
+        }
+
+        document.addEventListener("scroll",onScroll());
+    </script>
+
+    <div class="wrapper">
+        <!-- <h2>Histogram</h2> -->
+
+        <form action="/bar-chart?Buku=1" method="GET" style="margin-top: 15vh;z-index: 1;" class="form-bar">
+            <!-- <label for="Buku" class="select-dropdown"> -->
+                <select id="Buku" name="Buku">
+                    <!-- <option value="0">Silahkan Pilih...</option> -->
+                    <%for (const i of book){%>
+                        <option value="<%=i.book %>"> Book <%=i.book %></option>
+
+                    <%}%>
+                </select>
+            <!-- </label> -->
+            <input type="submit" value="cari">
+        </form>
+        
+        <div class="chart">
+            <canvas id="my_chart2" class="chart-canvas"></canvas>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -37,7 +88,7 @@
             data.push(i.jumlah)
         }
 
-        Chart.defaults.font.size=24;
+        // Chart.defaults.font.size=24;
 
         const data2 = {
             labels: labels2,

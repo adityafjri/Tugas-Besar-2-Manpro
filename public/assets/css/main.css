@@ -46,7 +46,7 @@ body.body-test .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(15, 36, 43, 0.2);
+  background-color: rgba(15, 36, 43, 0.6);
   padding: 0;
   margin: 0;
   height: 150vh;
@@ -61,6 +61,8 @@ body.body-test h2 {
 body.body-test #redirect-to-feature {
   text-decoration: none;
   padding: 20px 30px;
+  margin-top: 5vh;
+  margin-bottom: 10vh;
   background-color: white;
   color: black;
   border-radius: 20px;
@@ -248,7 +250,7 @@ body .card .card-button .card-overview {
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 5vh;
-  width: 200vh;
+  width: 170vh;
 }
 #trivia-card .trivia-item {
   height: 40vh;

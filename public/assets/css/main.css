@@ -148,7 +148,7 @@ body .card .card-button .card-overview {
   height: 8vh;
   font-size: 20px;
   border-radius: 20px;
-  border: none;
+  border: 2px solid white;
 }
 #pagination-content #nextButton:hover {
   background-color: black;
@@ -461,8 +461,10 @@ body .card .card-button .card-overview {
 }
 
 .chart {
-  width: 100vh;
-  height: 60vh;
+  margin-top: 5vh;
+  width: 150vh;
+  height: 70vh;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /*# sourceMappingURL=main.css.map */
